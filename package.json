@@ -1,0 +1,13 @@
+{
+  "_sourceId": "e92830b1-f0f3-4446-b616-55e3825de080",
+  "_storeId": "16b8238e5565cba108addad1b9517116",
+  "creator": {
+    "version": "3.6.1"
+  },
+  "name": "ball_paly",
+  "uuid": "b31102af-a632-4a71-ad9a-477b7770269c",
+  "version": "3.6.1",
+  "dependencies": {
+    "miniprogram-api-typings": "^3.12.2"
+  }
+}
