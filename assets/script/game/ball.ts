@@ -278,9 +278,9 @@ export class Ball extends Component {
             this.diffLevel += score / 2;
             
             for (let l = this.currBoardIdx - Constants.BOARD_NEW_INDEX; l > 0; l--) {
-                if(this.levelBoardNumber <=Constants.LEVEL_STEP){
+                // if(this.levelBoardNumber <=Constants.LEVEL_STEP){
                     this.newBoard();
-                 }
+                 // }
                 
             }
         }
@@ -304,9 +304,9 @@ export class Ball extends Component {
         Constants.game.cameraCtrl.setOriginPosY(c);
         Constants.game.cameraCtrl.preType = boardType;
 
-        if(_boardList.length - 1 ===this.currBoardIdx && this.levelBoardNumber >=Constants.LEVEL_STEP){
-            Constants.game.openLevelResult()
-        }
+        // if(_boardList.length - 1 ===this.currBoardIdx && this.levelBoardNumber >=Constants.LEVEL_STEP){
+        //     Constants.game.openLevelResult()
+        // }
     }
 
     // 创建新跳板信息

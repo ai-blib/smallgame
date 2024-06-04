@@ -7,6 +7,7 @@ import { Board } from "./board";
 import { Constants } from "../data/constants";
 import { utils } from "../utils/utils";
 const { ccclass, property } = _decorator;
+import randomcolor from 'randomColor';
 
 const _tempPos = new Vec3();
 const _diamondPos = new Vec3();
@@ -62,14 +63,13 @@ export class BoardManager extends Component {
             const board = node.getComponent('Board') as Board;
             this.changeColor(board)
             this._boardList.push(board);
-            console
         }
         this.reset();
     }
      
     changeColor(board:Board){
-        const index = Math.floor(Math.random()*3)
-        board?.node?.getChildByName('RootNode')?.getChildByName('Cylinder001')?.getComponent(MeshRenderer)?.material?.setProperty('mainColor',new Color(colors[index]))
+        board?.node?.getChildByName('RootNode')?.getChildByName('Cylinder001')?.getComponent(MeshRenderer)?.material?.setProperty('mainColor',new Color(randomcolor({luminosity: 'light',
+            hue: 'random'})))
 
     }
 

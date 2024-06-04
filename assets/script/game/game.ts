@@ -1,15 +1,17 @@
-
 /**
  * Copyright (c) 2019 Xiamen Yaji Software Co.Ltd. All rights reserved.
  * Created by daisy on 2019/06/25.
  */
-import { _decorator, Component, Node, instantiate, Prefab } from "cc";
-import { Constants } from "../data/constants";
-import { Ball } from "./ball";
-import { BoardManager } from "./board-manager";
-import { CameraCtrl } from "./camera-ctrl";
-import { UIManager } from "./ui-manager";
-import { AudioManager } from "./audio-manager";
+import {_decorator, Component, instantiate, Node, Prefab} from "cc";
+import {Constants} from "../data/constants";
+import {Ball} from "./ball";
+import {BoardManager} from "./board-manager";
+import {CameraCtrl} from "./camera-ctrl";
+import {UIManager} from "./ui-manager";
+import {AudioManager} from "./audio-manager";
+import {AddScore} from "db://assets/script/api/score";
+import {getUrlParam} from '../utils/GetUrlParam'
+
 const { ccclass, property } = _decorator;
 
 /**
@@ -113,7 +115,19 @@ export class Game extends Component {
     gameDie(){
         this.audioManager.playSound(false);
         this.state = Constants.GAME_STATE.PAUSE;
+        const score = Constants.game.score;
 
+        console.log(score, 'score')
+        try{
+            let user = getUrlParam('user');
+            user = (user ? decodeURIComponent(user) : null) as any;
+            user = user ? JSON.parse(user) : null
+            // @ts-ignore
+            user && AddScore(user?.id, score);
+        }catch(e){
+            console.log(e, 'e')
+        }
+        
         // if (!this.hasRevive) {
             this.node.emit(Constants.GAME_EVENT.DYING, ()=>{
                 this.gameOver();

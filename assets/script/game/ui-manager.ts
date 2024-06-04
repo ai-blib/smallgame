@@ -29,8 +29,7 @@ export class UIManager extends Component {
     start () {
         this.pageResult.active = false;
         this.gameLevelResult.active = false;
-        this.currentLevel.string =`当前关卡：${Constants.LEVEL.toString()}` ;
-
+        // this.currentLevel.string =`当前关卡：${Constants.LEVEL.toString()}` ;
     }
     
     get levelResultActive(){
@@ -38,14 +37,14 @@ export class UIManager extends Component {
     }
 
     showGameLevelResult(visible:boolean){
-        this.currentLevel.string =`当前关卡：${Constants.LEVEL.toString()}` ;
-
-        if(visible){
-            Constants.LEVEL+=1;
-        }
-        this.pageLevel.string =`下一关：${Constants.LEVEL.toString()}` ;
-
-        this.gameLevelResult.active = visible;
+        // this.currentLevel.string =`当前关卡：${Constants.LEVEL.toString()}` ;
+        //
+        // if(visible){
+        //     Constants.LEVEL+=1;
+        // }
+        // this.pageLevel.string =`下一关：${Constants.LEVEL.toString()}` ;
+        //
+        // this.gameLevelResult.active = visible;
     }
 
     showDialog(isMain: boolean, ...args: any[]){

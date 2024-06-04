@@ -51,7 +51,7 @@
         "_value": false
       },
       "physics-2d": {
-        "_value": true,
+        "_value": false,
         "_option": "physics-2d-box2d"
       },
       "physics-2d-box2d": {
@@ -61,7 +61,7 @@
         "_value": false
       },
       "intersection-2d": {
-        "_value": true
+        "_value": false
       },
       "primitive": {
         "_value": true
@@ -79,19 +79,19 @@
         "_value": false
       },
       "particle-2d": {
-        "_value": true
+        "_value": false
       },
       "audio": {
         "_value": true
       },
       "video": {
-        "_value": true
+        "_value": false
       },
       "webview": {
         "_value": false
       },
       "tween": {
-        "_value": true
+        "_value": false
       },
       "terrain": {
         "_value": false
@@ -106,7 +106,7 @@
         "_value": false
       },
       "marionette": {
-        "_value": true
+        "_value": false
       },
       "custom-pipeline": {
         "_value": false
@@ -120,16 +120,10 @@
       "audio",
       "base",
       "gfx-webgl",
-      "intersection-2d",
-      "marionette",
       "particle",
-      "particle-2d",
-      "physics-2d-box2d",
       "physics-ammo",
       "primitive",
-      "tween",
-      "ui",
-      "video"
+      "ui"
     ],
     "noDeprecatedFeatures": {
       "value": false,
