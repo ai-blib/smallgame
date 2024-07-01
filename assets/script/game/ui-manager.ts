@@ -52,7 +52,8 @@ export class UIManager extends Component {
         //     this.gameLevelResult.active = false;
         // }
         this.pageResult.active = !isMain;
-        this.pageStart.active = isMain;
+        // 强制消失
+        this.pageStart.active = false;
     }
 
 }

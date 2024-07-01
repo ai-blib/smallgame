@@ -62,6 +62,10 @@ enum GAME_EVENT {
      */
     ADDSCORE = 'add-score',
     /**
+     * @zh 设置分数
+     */
+    SETSCORE = 'set-score',
+    /**
      * @zh 死亡中
      */
     DYING = 'dying',
@@ -106,7 +110,7 @@ export class Constants {
     static LEVEL = 1; //关卡
 
     // score
-    static SCORE_BOARD_CENTER = 2; // 小球靠近跳板圆心的分数
+    static SCORE_BOARD_CENTER = 1; // 小球靠近跳板圆心的分数
     static SCORE_BOARD_NOT_CENTER = 1; // 小球跳入非跳板圆心的分数
 
     // board
@@ -168,11 +172,11 @@ export class Constants {
     static BALL_SPRINT_STEP_Y = 10; //
 
     // diamond
-    static DIAMOND_NUM = 10; // 钻石复用数量
+    static DIAMOND_NUM = 20; // 钻石复用数量
     static DIAMOND_PIECE_NUM = 10;
     static DIAMOND_RADIUS = 0.3;
     static DIAMOND_ROTATE_STEP_Y = 1.5;
-    static DIAMOND_SCORE = 1;
+    static DIAMOND_SCORE = 2;
     static DIAMOND_SCORE_AREA = 0.6;
     static DIAMOND_SPRINT_SCORE_AREA = 1;
     static DIAMOND_SPRINT_STEP_Y = 4;

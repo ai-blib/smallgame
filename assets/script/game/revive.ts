@@ -1,6 +1,7 @@
 import { _decorator, Component, SpriteComponent, Node, Widget, Label } from "cc";
 import { Constants } from "../data/constants";
 import { PageResult } from "./page-result";
+import Iframe, {EVENT_TYPE} from "db://assets/script/utils/iframe";
 const { ccclass, property } = _decorator;
 
 @ccclass("Revive")
@@ -69,6 +70,8 @@ export class Revive extends Component {
 
         // this.closeCb && this.closeCb();
         Constants.game.gameOver();
+        Iframe.sendMessage(EVENT_TYPE.onGoHome);
+
     }
 
     update(dt: number) {

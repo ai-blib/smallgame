@@ -49,6 +49,7 @@ export class Ball extends Component {
     movePosX = 0; // 移动位置 x
     isJumpSpring = false; // 处于弹簧版弹跳状态
     boardGroupCount = 0;
+    activeBoardCount = 0; // 当前激活的板数量
     trailNode: Node | null = null;
     timeScale = 0;
     levelBoardNumber:number = 6;  // 关卡的跳板数量
@@ -229,6 +230,7 @@ export class Ball extends Component {
 
      restLevel(){
         this.levelBoardNumber = 6;
+        this.activeBoardCount = 0;
      }
 
     updateBall() {
@@ -263,9 +265,10 @@ export class Ball extends Component {
 
         if (!this.currBoard.isActive) {
             this.currBoard.isActive = true;
+            this.activeBoardCount++;
             let score = Constants.SCORE_BOARD_NOT_CENTER;
             if (boardType !== Constants.BOARD_TYPE.NORMAL && boardType !== Constants.BOARD_TYPE.DROP || Math.abs(pos.x - boardPos.x) <= Constants.BOARD_RADIUS_CENTER) {
-                score = Constants.SCORE_BOARD_CENTER;
+                score = Constants.SCORE_BOARD_CENTER ;
             }
 
             Constants.game.addScore(score);
@@ -345,7 +348,6 @@ export class Ball extends Component {
 
     // 界面上的弹跳分数
     showScore(score: number) {
-        console.log('122',score)
         const node = PoolManager.instance.getNode(this.scoreAniPrefab, find('Canvas/resultUI')!);
         const pos = new Vec3();
         const cameraComp = Constants.game.cameraCtrl.node.getComponent(Camera)!;
@@ -361,7 +363,7 @@ export class Ball extends Component {
         });
         animationComponent.play();
         // 更换球的背景色
-        this.switchBallbg()
+        // this.switchBallbg()
 
     }
 

@@ -11,8 +11,9 @@ import {UIManager} from "./ui-manager";
 import {AudioManager} from "./audio-manager";
 import {AddScore} from "db://assets/script/api/score";
 import {getUrlParam} from '../utils/GetUrlParam'
+import Iframe, {EVENT_TYPE, RECEIVE_EVENT_TYPE} from "db://assets/script/utils/iframe";
 
-const { ccclass, property } = _decorator;
+const {ccclass, property} = _decorator;
 
 /**
  * @zh 游戏管理类，同时也是事件监听核心对象。
@@ -30,10 +31,10 @@ export class Game extends Component {
     @property(AudioManager)
     audioManager: AudioManager = null!;
 
-     // There is no diamond in first board
+    // There is no diamond in first board
     initFirstBoard = false;
 
-    get ball(){
+    get ball() {
         return this._ball;
     }
 
@@ -41,11 +42,13 @@ export class Game extends Component {
     score = 0;
     hasRevive = false;
     _ball: Ball = null!;
-    __preload () {
+
+    __preload() {
         Constants.game = this;
     }
 
-    onLoad(){
+    onLoad() {
+
         if (!this.ballPref) {
             console.log('There is no ball!!');
             this.enabled = false;
@@ -56,9 +59,33 @@ export class Game extends Component {
         // @ts-ignore
         ball.parent = this.node.parent;
         this._ball = ball.getComponent(Ball)!;
+        // 游戏开始
+        Iframe.start();
+        Iframe.sendMessage(EVENT_TYPE.onGameStart);
+        // 更新分数
+        Iframe.addEventListener(RECEIVE_EVENT_TYPE.onSetScore, (message: string) => {
+            this.score = Number(message);
+            this.node.emit(Constants.GAME_EVENT.SETSCORE, this.score);
+        })
+        Iframe.addEventListener(RECEIVE_EVENT_TYPE.onPlayGame, (message: string) => {
+            this.gameStart();
+        })
+        Iframe.addEventListener(RECEIVE_EVENT_TYPE.gameReset, (message: string) => {
+            this.resetGame();
+        })
+        Iframe.addEventListener(RECEIVE_EVENT_TYPE.onCloseMusic, (message: string) => {
+            if (message) {
+                let isPlay = JSON.parse(message);
+                if (isPlay) {
+                    this.audioManager.playSound();
+                } else {
+                    this.audioManager.playSound(false);
+                }
+            }
+        })
     }
 
-    start(){
+    start() {
         this.node.on(Constants.GAME_EVENT.RESTART, this.gameStart, this);
         this.node.on(Constants.GAME_EVENT.REVIVE, this.gameRevive, this);
 
@@ -73,15 +100,15 @@ export class Game extends Component {
 
     }
 
-      openLevelResult(){
-        if(!this.uiManager.levelResultActive){
+    openLevelResult() {
+        if (!this.uiManager.levelResultActive) {
             this.uiManager.showGameLevelResult(true);
         }
-      }
+    }
 
-      // 游戏继续
-      gameContinue(){
-       
+    // 游戏继续
+    gameContinue() {
+
         this.uiManager.showDialog(false);
         this.uiManager.showGameLevelResult(false);
         this.state = Constants.GAME_STATE.PLAYING;
@@ -90,7 +117,7 @@ export class Game extends Component {
         this.boardManager.reset();
         this.uiManager.showGameLevelResult(false)
         // this.uiManager.showDialog(true);
-      }
+    }
 
 
     resetGame() {
@@ -99,52 +126,37 @@ export class Game extends Component {
         this.cameraCtrl.reset();
         this.boardManager.reset();
         this.uiManager.showGameLevelResult(false)
-
         this.uiManager.showDialog(true);
+        // Iframe.sendMessage(EVENT_TYPE.onGameOver);
+
     }
 
-    gameStart(){
+    gameStart() {
         this.audioManager.playSound();
         this.uiManager.showDialog(false);
         this.state = Constants.GAME_STATE.PLAYING;
         this.hasRevive = false;
-        this.score = 0;
         this._ball.restLevel();
     }
 
-    gameDie(){
+    gameDie() {
         this.audioManager.playSound(false);
         this.state = Constants.GAME_STATE.PAUSE;
         const score = Constants.game.score;
+        Iframe.sendMessage(EVENT_TYPE.onGameOver, this.score + '');
+        this.node.emit(Constants.GAME_EVENT.DYING);
+        this.gameOver();
 
-        console.log(score, 'score')
-        try{
-            let user = getUrlParam('user');
-            user = (user ? decodeURIComponent(user) : null) as any;
-            user = user ? JSON.parse(user) : null
-            // @ts-ignore
-            user && AddScore(user?.id, score);
-        }catch(e){
-            console.log(e, 'e')
-        }
-        
-        // if (!this.hasRevive) {
-            this.node.emit(Constants.GAME_EVENT.DYING, ()=>{
-                this.gameOver();
-            });
-        // } else {
-        //     this.gameOver();
-        // }
     }
 
     gameOver() {
         this.state = Constants.GAME_STATE.OVER;
         this.audioManager.playSound(false);
-    
+
         this.resetGame();
     }
 
-    gameRevive(){
+    gameRevive() {
         this.hasRevive = true;
         this.state = Constants.GAME_STATE.READY;
         this.ball.revive();
@@ -154,8 +166,9 @@ export class Game extends Component {
         }, 1);
     }
 
-    addScore(score: number){
+    addScore(score: number) {
         this.score += score;
+        Iframe.sendMessage(EVENT_TYPE.onAddScore, this.score + '');
         this.node.emit(Constants.GAME_EVENT.ADDSCORE, this.score);
     }
 }
