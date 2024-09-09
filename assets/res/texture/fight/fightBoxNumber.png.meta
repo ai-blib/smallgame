@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "cb98f2e3-f9d1-43ec-8202-b877ae14b896",
@@ -27,7 +27,7 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "cb98f2e3-f9d1-43ec-8202-b877ae14b896",
-        "visible": true
+        "visible": false
       },
       "displayName": "fightBoxNumber",
       "id": "6c48a",

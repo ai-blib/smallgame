@@ -1,12 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.12",
   "importer": "fbx",
   "imported": true,
   "uuid": "eb63a17d-58c5-4549-9483-59ee9e290d4e",
   "files": [],
   "subMetas": {
     "684db": {
-      "ver": "1.1.0",
+      "ver": "1.1.1",
       "importer": "gltf-mesh",
       "name": "Cylinder002.mesh",
       "id": "684db",
@@ -19,7 +19,8 @@
       ],
       "subMetas": {},
       "userData": {
-        "gltfIndex": 0
+        "gltfIndex": 0,
+        "triangleCount": 22
       }
     },
     "df7df": {
@@ -36,7 +37,10 @@
       ],
       "subMetas": {},
       "userData": {
-        "gltfIndex": 0
+        "gltfIndex": 0,
+        "fixAlphaTransparencyArtifacts": true,
+        "hasAlpha": true,
+        "type": "texture"
       }
     },
     "a96a6": {
@@ -64,7 +68,7 @@
       }
     },
     "a66d0": {
-      "ver": "1.0.12",
+      "ver": "1.0.14",
       "importer": "gltf-scene",
       "name": "diamond01.prefab",
       "id": "a66d0",
@@ -109,7 +113,26 @@
     "legacyFbxImporter": true,
     "materialDumpDir": "db://assets/res/model/diamond01/Materials_diamond01",
     "fbx": {
-      "smartMaterialEnabled": false
+      "smartMaterialEnabled": false,
+      "matchMeshNames": false
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
     }
   }
 }

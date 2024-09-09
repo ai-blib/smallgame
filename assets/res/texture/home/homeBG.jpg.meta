@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "8fbd1253-037e-45c5-9c5a-95b787be783c",
@@ -27,7 +27,7 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "8fbd1253-037e-45c5-9c5a-95b787be783c",
-        "visible": true
+        "visible": false
       },
       "displayName": "homeBG",
       "id": "6c48a",

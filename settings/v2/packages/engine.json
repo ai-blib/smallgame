@@ -120,14 +120,17 @@
       "audio",
       "base",
       "gfx-webgl",
+      "light-probe",
       "particle",
       "physics-ammo",
       "primitive",
-      "ui"
+      "ui",
+      "websocket"
     ],
     "noDeprecatedFeatures": {
       "value": false,
       "version": "'<=3.'"
     }
-  }
+  },
+  "__version__": "1.0.7"
 }

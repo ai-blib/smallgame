@@ -84,7 +84,7 @@ export class Ball extends Component {
     }
 
     update(deltaTime: number) {
-        this.timeScale = Math.floor((deltaTime / Constants.normalDt) * 100) / 100;
+        this.timeScale = Math.floor((deltaTime / Constants.normalDt) * 100) / 107;
         if (Constants.game.state === Constants.GAME_STATE.PLAYING) {
             const boardBox = Constants.game.boardManager;
             const boardList = boardBox.getBoardList();
@@ -131,19 +131,21 @@ export class Ball extends Component {
 
                     // 超过当前跳板应该弹跳高度，开始下降
                     if (this.jumpState === Constants.BALL_JUMP_STATE.FALLDOWN) {
-                        if (this.currJumpFrame > Constants.PLAYER_MAX_DOWN_FRAMES || (this.currBoard.node.position.y - pos.y) - (Constants.BOARD_GAP + Constants.BOARD_HEIGTH) > 0.001) {
-                            ParticleUtils.stop(this.trailNode!);
-                            Constants.game.gameDie();
-                            return;
-                        }
+
 
                         // 是否在当前检测的板上
                         if (this.isOnBoard(board)) {
+
                             this.currBoard = board;
                             this.currBoardIdx = i;                            
                 
                             this.activeCurrBoard(boardList);
                             break;
+                        }
+                        if ((this.currBoard.node.position.y - pos.y) - (Constants.BOARD_GAP + Constants.BOARD_HEIGTH) > 0.001) {
+                            ParticleUtils.stop(this.trailNode!);
+                            Constants.game.gameDie();
+                            return;
                         }
                     }
                 }
@@ -154,6 +156,7 @@ export class Ball extends Component {
                     if (this.isJumpSpring && this.currJumpFrame >= Constants.BALL_JUMP_FRAMES_SPRING) {
                         // 处于跳跃状态并且当前跳跃高度超过弹簧板跳跃高度
                         this.jumpState = Constants.BALL_JUMP_STATE.FALLDOWN;
+
                         this.currJumpFrame = 0;
                     } else {
                         if (!this.isJumpSpring && this.currJumpFrame >= Constants.BALL_JUMP_FRAMES) {
@@ -260,6 +263,7 @@ export class Ball extends Component {
             // this.node.eulerAngles = new Vec3(this.node.eulerAngles.x, this.node.eulerAngles.y, 0);
             Constants.game.cameraCtrl.setOriginPosX(boardPos.x);
         } else {
+            debugger
             this.jumpState = Constants.BALL_JUMP_STATE.JUMPUP;
         }
 
@@ -278,7 +282,7 @@ export class Ball extends Component {
                 Constants.game.node.emit(Constants.GAME_EVENT.HIDETIPS);
             }
 
-            this.diffLevel += score / 2;
+            this.diffLevel += score;
             
             for (let l = this.currBoardIdx - Constants.BOARD_NEW_INDEX; l > 0; l--) {
                 // if(this.levelBoardNumber <=Constants.LEVEL_STEP){
@@ -318,7 +322,7 @@ export class Ball extends Component {
         let type = Constants.BOARD_TYPE.NORMAL;
         
         if (this.boardGroupCount <= 0) {
-            const coeff = utils.getDiffCoeff(this.diffLevel, 1, 10);
+            const coeff = utils.getDiffCoeff(this.diffLevel, 1, 20);
             const t = Math.random() * coeff;
             if (t < 4.2) {
                 type = Constants.BOARD_TYPE.NORMAL;
@@ -335,6 +339,7 @@ export class Ball extends Component {
                 type = Constants.BOARD_TYPE.DROP;
                 this.boardGroupCount = 3
             } else if (t <= 7.5 && false === this.hasSprint) {
+                debugger
                 type = Constants.BOARD_TYPE.SPRINT;
                 this.hasSprint = true;
             } else {
@@ -464,18 +469,17 @@ export class Ball extends Component {
             }
 
             // 处于下落状态
-            if (this.isJumpSpring && this.currJumpFrame >= Constants.BALL_JUMP_FRAMES_SPRING) {
+            if (this.isJumpSpring) {
                 // 是否处于反弹后的第一次匀减速范围内
                 if (Math.abs(y) < Constants.BALL_JUMP_STEP_SPRING[0]) {
                     return true;
                 }
-            } else if (!this.isJumpSpring && this.currJumpFrame >= Constants.BALL_JUMP_FRAMES){
+            } else if (!this.isJumpSpring){
                 if (Math.abs(y) < Constants.BALL_JUMP_STEP[0]){
                     return true;
                 }
             }
         }
-
         return false;
     }
 

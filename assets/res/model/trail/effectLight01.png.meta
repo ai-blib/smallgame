@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "0bc35d07-f319-4e0d-b4c8-958df7ea1acc",
@@ -27,7 +27,7 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "0bc35d07-f319-4e0d-b4c8-958df7ea1acc",
-        "visible": true
+        "visible": false
       },
       "displayName": "effectLight01",
       "id": "6c48a",

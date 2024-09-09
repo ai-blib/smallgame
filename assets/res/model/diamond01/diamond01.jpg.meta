@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "7d207963-41de-445b-93d8-a00efac7e6c4",
@@ -27,7 +27,7 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "7d207963-41de-445b-93d8-a00efac7e6c4",
-        "visible": true
+        "visible": false
       },
       "displayName": "diamond01",
       "id": "6c48a",

@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "b70b71bd-411b-448f-a01c-359492c99f74",
@@ -27,7 +27,7 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "b70b71bd-411b-448f-a01c-359492c99f74",
-        "visible": true
+        "visible": false
       },
       "displayName": "fightScore",
       "id": "6c48a",

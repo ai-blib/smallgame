@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "fd3716ab-0308-48aa-b8d1-83b918b204f5",
@@ -27,7 +27,7 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "fd3716ab-0308-48aa-b8d1-83b918b204f5",
-        "visible": true
+        "visible": false
       },
       "displayName": "plate01",
       "id": "6c48a",

@@ -1,12 +1,12 @@
 {
-  "ver": "2.3.1",
+  "ver": "2.3.12",
   "importer": "fbx",
   "imported": true,
   "uuid": "80bf90f7-8567-4e82-8820-df7470d17e85",
   "files": [],
   "subMetas": {
     "b8a2d": {
-      "ver": "1.1.0",
+      "ver": "1.1.1",
       "importer": "gltf-mesh",
       "name": "Plane001.mesh",
       "id": "b8a2d",
@@ -19,7 +19,8 @@
       ],
       "subMetas": {},
       "userData": {
-        "gltfIndex": 0
+        "gltfIndex": 0,
+        "triangleCount": 32
       }
     },
     "df7df": {
@@ -36,7 +37,10 @@
       ],
       "subMetas": {},
       "userData": {
-        "gltfIndex": 0
+        "gltfIndex": 0,
+        "fixAlphaTransparencyArtifacts": true,
+        "hasAlpha": true,
+        "type": "texture"
       }
     },
     "a96a6": {
@@ -88,7 +92,7 @@
       "userData": {
         "gltfIndex": 0
       },
-      "ver": "1.0.12",
+      "ver": "1.0.14",
       "imported": true,
       "files": [
         ".json"
@@ -124,7 +128,26 @@
     ],
     "legacyFbxImporter": true,
     "fbx": {
-      "smartMaterialEnabled": false
+      "smartMaterialEnabled": false,
+      "matchMeshNames": false
+    },
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
     }
   }
 }
