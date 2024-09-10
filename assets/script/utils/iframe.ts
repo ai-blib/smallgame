@@ -4,6 +4,7 @@ export enum EVENT_TYPE {
     onGameScoreChange = 'game_score',
     onAddScore = 'add_score',
     onGoHome = 'on_go_home',
+    onFps = 'fps',
 
 }
 
@@ -48,7 +49,7 @@ export default class Iframe {
 
     static sendMessage(type: EVENT_TYPE, message?: string) {
         if (window.parent) {
-            if (this.callBacks && [EVENT_TYPE.onAddScore, EVENT_TYPE.onGameStart, EVENT_TYPE.onGameOver, EVENT_TYPE.onGameScoreChange, EVENT_TYPE.onGoHome].indexOf(type) !== -1) {
+            if (this.callBacks && [EVENT_TYPE.onAddScore,EVENT_TYPE.onFps, EVENT_TYPE.onGameStart, EVENT_TYPE.onGameOver, EVENT_TYPE.onGameScoreChange, EVENT_TYPE.onGoHome].indexOf(type) !== -1) {
                 const eventData = {
                     type: type,
                     data: message,

@@ -146,7 +146,12 @@ export class Game extends Component {
         Iframe.sendMessage(EVENT_TYPE.onGameOver, this.score + '');
         this.node.emit(Constants.GAME_EVENT.DYING);
         this.gameOver();
+        try {
+            let cocosAverageFps = this._ball.getFps();
+            Iframe.sendMessage(EVENT_TYPE.onFps, JSON.stringify(cocosAverageFps));
+        }catch (e) {
 
+        }
     }
 
     gameOver() {

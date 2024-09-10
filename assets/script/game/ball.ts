@@ -55,7 +55,11 @@ export class Ball extends Component {
     levelBoardNumber:number = 6;  // 关卡的跳板数量
     _wPos = new Vec3();
 
-
+    private frameTimes: number[] = []; // 保存每帧时间
+    private maxFrames: number = 60; // 用于计算的最大帧数
+    private startTime: number;
+    private maxFPS: number = 0; // 最大FPS
+    private minFPS: number = Number.MAX_VALUE; // 最小FPS
     start () {
         
         Constants.game.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
@@ -180,6 +184,47 @@ export class Ball extends Component {
 
             this.setTrailPos();
         }
+
+        this.updateTime(deltaTime)
+    }
+
+    getFps() {
+        if (this.frameTimes.length === 0) return 0;
+
+        const totalFrameTime = this.frameTimes.reduce((sum, time) => sum + time, 0);
+        const averageFrameTime = totalFrameTime / this.frameTimes.length;
+        let AverageFPS = 1000 / averageFrameTime
+        console.log('Average FPS:', AverageFPS)
+        return {
+            AverageFPS,
+            maxFPS: this.maxFPS,
+            minFPS:this.minFPS === Number.MAX_VALUE ? 0 : this.minFPS
+        }
+    }
+
+    updateTime(dt:number) {
+
+        const currentTime = performance.now();
+        const frameTime = currentTime - this.startTime;
+        this.startTime = currentTime;
+
+        this.frameTimes.push(frameTime);
+
+        if (this.frameTimes.length > this.maxFrames) {
+            this.frameTimes.shift(); // 移除最旧的帧时间
+        }
+
+        // 计算当前帧的FPS
+        const currentFPS = 1000 / frameTime;
+
+        // 更新最大和最小FPS
+        if (currentFPS > this.maxFPS) {
+            this.maxFPS = currentFPS;
+        }
+
+        if (currentFPS < this.minFPS) {
+            this.minFPS = currentFPS;
+        }
     }
 
     onTouchStart(touch: Touch, event: EventTouch){
@@ -198,6 +243,8 @@ export class Ball extends Component {
 
     gameStart(){
         this.playTrail();
+        this.startTime = performance.now();
+
     }
 
     reset() {
